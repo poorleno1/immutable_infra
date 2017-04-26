@@ -101,8 +101,15 @@
       "type": "windows-shell",
       "scripts": [
         "./scripts/set-winrm-automatic.bat",
-        "./scripts/uac-enable.bat"
+        "./scripts/uac-enable.bat",
+		"./scripts/compact.bat"
       ]
+    },
+    {
+      "type": "powershell",
+      "script": "./scripts/compact.ps1",
+      "elevated_user": "vagrant",
+      "elevated_password": "vagrant"
     }
   ],
   "post-processors": [

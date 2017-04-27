@@ -1,4 +1,5 @@
 $ErrorActionPreference = "Stop"
+. a:/Test-Command.ps1
 
 Write-Host "defragging..."
 if (Test-Command -cmdname 'Optimize-Volume') {
@@ -30,3 +31,5 @@ finally {
 }
 
 Del $FilePath
+
+

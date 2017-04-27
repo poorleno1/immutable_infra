@@ -25,6 +25,7 @@
         "./scripts/disable-winrm.ps1",
         "./scripts/docker/enable-winrm.ps1",
         "./scripts/microsoft-updates.bat",
+		"./scripts/oracle-cert.cer",
         "./scripts/win-updates.ps1"
       ],
       "vmx_data": {
@@ -60,7 +61,8 @@
         "./scripts/docker/enable-winrm.ps1",
         "./scripts/microsoft-updates.bat",
         "./scripts/win-updates.ps1",
-        "./scripts/oracle-cert.cer"
+        "./scripts/oracle-cert.cer",
+		"./scripts/Test-Command.ps1"
       ],
       "vboxmanage": [
         [
@@ -101,15 +103,25 @@
       "type": "windows-shell",
       "scripts": [
         "./scripts/set-winrm-automatic.bat",
-        "./scripts/uac-enable.bat",
-		"./scripts/compact.bat"
-      ]
+        "./scripts/uac-enable.bat"
+	  ]
     },
     {
       "type": "powershell",
-      "script": "./scripts/compact.ps1",
-      "elevated_user": "vagrant",
-      "elevated_password": "vagrant"
+	  "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": [
+		"./scripts/install_ps_modules.ps1",
+		"./scripts/install_vbox_guest_additions.ps1",
+		"./scripts/win-updates.ps1",
+		"./scripts/compact.ps1"
+	  ]
+    },
+    {
+      "type": "windows-shell",
+      "scripts": [
+		"./scripts/compact.bat"
+	   ]
     }
   ],
   "post-processors": [

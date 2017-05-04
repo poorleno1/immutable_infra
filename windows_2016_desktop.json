@@ -137,6 +137,7 @@
     "iso_checksum_type": "sha1",
     "iso_checksum": "772700802951B36C8CB26A61C040B9A8DC3816A3",
     "autounattend": "./answer_files/2016/Autounattend.xml",
-    "product_key": "<tab>"
+    "product_key": "<tab>",
+	"guest_additions_mode": "attach"
   }
 }

@@ -29,8 +29,7 @@ if(-not (Test-Path "C:\Windows\Temp\VBoxGuestAdditions.iso")) {
 		Write-Host "Starting installation."
         Start-Process -FilePath "C:\Windows\Temp\vb\VBoxWindowsAdditions.exe" -ArgumentList "/S" -WorkingDirectory "C:\Windows\Temp\vb" -Wait
 		Write-Host "Finishing installation."
-        #Remove-Item C:/Windows/Temp/virtualbox -Recurse -Force
-        #Remove-Item C:/Windows/Temp/VBoxGuestAdditions.iso -Force
+        Remove-Item C:\Windows\Temp\vb -Recurse -Force
     }
 else 
 {

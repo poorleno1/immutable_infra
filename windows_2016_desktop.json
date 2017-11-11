@@ -26,6 +26,7 @@
         "./scripts/docker/enable-winrm.ps1",
         "./scripts/microsoft-updates.bat",
 		"./scripts/oracle-cert.cer",
+		"./scripts/finale.cmd",
         "./scripts/win-updates.ps1"
       ],
       "vmx_data": {
@@ -43,6 +44,7 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
+	  "post_shutdown_delay":"5m",
       "headless": false,
       "boot_wait": "9m",
       "boot_command": [ "{{user `product_key`}}<enter>" ],
@@ -63,7 +65,10 @@
         "./scripts/win-updates.ps1",
         "./scripts/oracle-cert.cer",
 		"./scripts/winrm.ps1",
-		"./scripts/Test-Command.ps1"
+		"./scripts/Test-Command.ps1",
+		"./scripts/finale.cmd",
+		"./scripts/install_tools.ps1",
+		"./scripts/win-updates.ps1"
       ],
       "vboxmanage": [
         [
@@ -114,7 +119,29 @@
       "scripts": [
 		"./scripts/install_ps_modules.ps1",
 		"./scripts/install_vbox_guest_additions.ps1",
-		"./scripts/win-updates.ps1",
+		"./scripts/install_tools.ps1"
+	 ]
+    },
+	{
+      "type": "windows-restart"
+    },
+	{
+      "type": "powershell",
+	  "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": [
+		"./scripts/win-updates.ps1"
+	  ]
+    },
+	{
+      "type": "windows-restart",
+	  "restart_timeout":"1h"
+    },
+	{
+      "type": "powershell",
+	  "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": [
 		"./scripts/compact.ps1"
 	  ]
     },
@@ -122,6 +149,7 @@
       "type": "windows-shell",
       "scripts": [
         "./scripts/set-winrm-automatic.bat",
+		"./scripts/finale.cmd",
         "./scripts/uac-enable.bat"
 	  ]
     },

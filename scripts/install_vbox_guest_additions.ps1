@@ -18,7 +18,8 @@ Write-Host "Installing Guest Additions"
 
 if(-not (Test-Path "C:\Windows\Temp\VBoxGuestAdditions.iso")) {
 		#(New-Object System.Net.WebClient).DownloadFile('http://download.virtualbox.org/virtualbox/5.0.14/VBoxGuestAdditions_5.0.14.iso', 'C:\Windows\Temp\VBoxGuestAdditions.iso')
-		(New-Object System.Net.WebClient).DownloadFile('http://download.virtualbox.org/virtualbox/5.1.22/VBoxGuestAdditions_5.1.22.iso', 'C:\Windows\Temp\VBoxGuestAdditions.iso')
+		#(New-Object System.Net.WebClient).DownloadFile('http://download.virtualbox.org/virtualbox/5.1.22/VBoxGuestAdditions_5.1.22.iso', 'C:\Windows\Temp\VBoxGuestAdditions.iso')
+		(New-Object System.Net.WebClient).DownloadFile('http://download.virtualbox.org/virtualbox/5.2.0/VBoxGuestAdditions_5.2.0.iso', 'C:\Windows\Temp\VBoxGuestAdditions.iso')
         Write-Host "Iso file found. Proceeding with installation."
         certutil -addstore -f "TrustedPublisher" A:\oracle-cert.cer
         cinst 7zip.commandline -y

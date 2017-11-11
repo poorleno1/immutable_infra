@@ -1,6 +1,38 @@
 $ErrorActionPreference = "Stop"
 . a:/Test-Command.ps1
 
+
+$pause_time=120
+
+Write-Host "Waiting to finish possible updates for $pause_time seconds."
+Start-Sleep -s $pause_time
+
+Write-Host "Cleaning SxS..."
+Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase
+
+@(
+    "$env:localappdata\Nuget",
+    "$env:localappdata\temp\*",
+    "$env:windir\logs",
+    "$env:windir\panther",
+    "$env:windir\temp\*",
+    "$env:windir\winsxs\manifestcache"
+) | % {
+        if(Test-Path $_) {
+            Write-Host "Removing $_"
+            try {
+              Takeown /d Y /R /f $_
+              Icacls $_ /GRANT:r administrators:F /T /c /q  2>&1 | Out-Null
+              Remove-Item $_ -Recurse -Force | Out-Null 
+            } catch { $global:error.RemoveAt(0) }
+        }
+    }
+
+	
+Write-Host "Removing Page File."
+$pageFileMemoryKey = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"
+Set-ItemProperty -Path $pageFileMemoryKey -Name PagingFiles -Value ""
+
 Write-Host "defragging..."
 if (Test-Command -cmdname 'Optimize-Volume') {
     Optimize-Volume -DriveLetter C

@@ -1,0 +1,1 @@
+regedit /s adjust_visuals.reg

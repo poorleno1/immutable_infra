@@ -7,27 +7,28 @@ Vagrant.configure("2") do |config|
     config.vm.define "vagrant-windows-2016"
     config.vm.box = "windows_2016"
     config.vm.communicator = "winrm"
+	config.vm.boot_timeout = 30000
 
     # Admin user name and password
     config.winrm.username = "vagrant"
     config.winrm.password = "vagrant"
 
     config.vm.guest = :windows
-    config.windows.halt_timeout = 15
+    config.windows.halt_timeout = 3000
 
     config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
     config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true
 	
-	if Vagrant.has_plugin?("vagrant-proxyconf")
-     config.proxy.http     = "http://145.247.13.164:3128/"
-     config.proxy.https    = "http://145.247.13.164:3128/"
-     config.proxy.no_proxy = "localhost,127.0.0.1,.statoilfuelretail.com"
-    end
+#	if Vagrant.has_plugin?("vagrant-proxyconf")
+#     config.proxy.http     = "http://145.247.13.164:3128/"
+#     config.proxy.https    = "http://145.247.13.164:3128/"
+#     config.proxy.no_proxy = "localhost,127.0.0.1,.statoilfuelretail.com"
+#    end
 
     config.vm.provider :virtualbox do |v, override|
         #v.gui = true
         v.customize ["modifyvm", :id, "--memory", 2048]
-        v.customize ["modifyvm", :id, "--cpus", 2]
+        v.customize ["modifyvm", :id, "--cpus", 4]
 		v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
         v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
     end

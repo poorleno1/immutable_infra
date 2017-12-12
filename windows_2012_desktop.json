@@ -1,0 +1,137 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "communicator": "winrm",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+	  "post_shutdown_delay":"5m",
+      "headless": false,
+      "boot_wait": "9m",
+      "boot_command": [ "{{user `product_key`}}<enter>" ],
+      "winrm_username": "vagrant",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "6h",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "guest_os_type": "Windows2012_64",
+      "guest_additions_mode": "disable",
+      "disk_size": 61440,
+      "floppy_files": [
+        "./answer_files/2012/Autounattend.xml",
+        "./floppy/WindowsPowershell.lnk",
+        "./floppy/PinTo10.exe",
+        "./scripts/disable-winrm.ps1",
+        "./scripts/docker/enable-winrm.ps1",
+        "./scripts/microsoft-updates.bat",
+        "./scripts/win-updates.ps1",
+        "./scripts/oracle-cert.cer",
+		"./scripts/winrm.ps1",
+		"./scripts/Test-Command.ps1",
+		"./scripts/finale.cmd",
+		"./scripts/install_tools.ps1",
+		"./scripts/win-updates.ps1"
+      ],
+      "vboxmanage": [
+	    [ "modifyvm", "{{.Name}}", "--natpf1", "guest_winrm,tcp,,55985,,5985" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
+        [ "modifyvm", "{{.Name}}", "--vram", "48" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "windows-shell",
+      "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
+      "scripts": [
+        "./scripts/enable-rdp.bat"
+      ]
+    },
+    {
+      "type": "windows-restart"
+    },
+    {
+      "type": "windows-shell",
+      "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
+      "scripts": [
+        "./scripts/pin-powershell.bat",
+        "./scripts/uac-enable.bat"
+      ]
+    },
+    {
+      "type": "windows-shell",
+      "scripts": [
+        "./scripts/set-winrm-automatic.bat",
+        "./scripts/uac-enable.bat"
+	  ]
+    },
+    {
+      "type": "powershell",
+	  "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": [
+		"./scripts/install_ps_modules.ps1",
+		"./scripts/install_vbox_guest_additions.ps1",
+		"./scripts/install_tools.ps1"
+	 ]
+    },
+	{
+      "type": "windows-restart"
+    },
+	{
+      "type": "powershell",
+	  "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": [
+		"./scripts/win-updates.ps1"
+	  ]
+    },
+	{
+      "type": "windows-restart",
+	  "restart_timeout":"1h"
+    },
+	{
+      "type": "powershell",
+	  "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": [
+		"./scripts/compact.ps1"
+	  ]
+    },
+    {
+      "type": "windows-shell",
+      "scripts": [
+        "./scripts/set-winrm-automatic.bat",
+		"./scripts/finale.cmd",
+        "./scripts/uac-enable.bat"
+	  ]
+    },
+	{
+      "type": "windows-restart"
+    },
+    {
+      "type": "windows-shell",
+      "scripts": [
+		"./scripts/compact.bat",
+		"./scripts/uac-enable.bat"
+	   ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "windows_2016_docker_{{.Provider}}.box",
+      "vagrantfile_template": "vagrantfile-windows_2016.template"
+    }
+  ],
+  "variables": {
+	"iso_url": "iso/9200.16384.WIN8_RTM.120725-1247_X64FRE_SERVER_EVAL_EN-US-HRM_SSS_X64FREE_EN-US_DV5.iso",
+    "iso_checksum_type": "sha1",
+    "iso_checksum": "922B365C3360CE630F6A4B4F2F3C79E66165C0FB",
+    "autounattend": "./answer_files/2012/Autounattend.xml",
+    "product_key": "<tab>",
+	"guest_additions_mode": "attach"
+  }
+}

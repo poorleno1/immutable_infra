@@ -19,11 +19,11 @@ Vagrant.configure("2") do |config|
     config.vm.network :forwarded_port, guest: 3389, host: 3389, id: "rdp", auto_correct: true
     config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", auto_correct: true
 	
-#	if Vagrant.has_plugin?("vagrant-proxyconf")
-#     config.proxy.http     = "http://145.247.13.164:3128/"
-#     config.proxy.https    = "http://145.247.13.164:3128/"
-#     config.proxy.no_proxy = "localhost,127.0.0.1,.statoilfuelretail.com"
-#    end
+	if Vagrant.has_plugin?("vagrant-proxyconf")
+     config.proxy.http     = "http://145.247.13.164:3128/"
+     config.proxy.https    = "http://145.247.13.164:3128/"
+     config.proxy.no_proxy = "localhost,127.0.0.1,.statoilfuelretail.com"
+    end
 
     config.vm.provider :virtualbox do |v, override|
         #v.gui = true

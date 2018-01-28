@@ -6,14 +6,14 @@
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
-	  "post_shutdown_delay":"5m",
+	  "post_shutdown_delay":"2m",
       "headless": false,
-      "boot_wait": "9m",
+      "boot_wait": "1m",
       "boot_command": [ "{{user `product_key`}}<enter>" ],
       "winrm_username": "vagrant",
       "winrm_password": "vagrant",
       "winrm_timeout": "6h",
-      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "shutdown_command": "shutdown /s /t 2 /f /d p:4:1 /c \"Packer Shutdown\"",
       "guest_os_type": "Windows2012_64",
       "guest_additions_mode": "disable",
       "disk_size": 61440,
@@ -30,6 +30,7 @@
 		"./scripts/Test-Command.ps1",
 		"./scripts/finale.cmd",
 		"./scripts/install_tools.ps1",
+		"./floppy/Win8.1AndW2K12R2-KB3191564-x64.msu",
 		"./scripts/win-updates.ps1"
       ],
       "vboxmanage": [
@@ -66,28 +67,16 @@
         "./scripts/uac-enable.bat"
 	  ]
     },
-    {
-      "type": "powershell",
-	  "elevated_user": "vagrant",
-      "elevated_password": "vagrant",
-      "scripts": [
-		"./scripts/install_ps_modules.ps1",
-		"./scripts/install_vbox_guest_additions.ps1",
-		"./scripts/install_tools.ps1"
-	 ]
-    },
-	{
-      "type": "windows-restart"
-    },
 	{
       "type": "powershell",
 	  "elevated_user": "vagrant",
       "elevated_password": "vagrant",
       "scripts": [
-		"./scripts/win-updates.ps1"
-	  ]
+		"./scripts/install_powershell5.ps1"
+	 ],
+	"valid_exit_codes": [ 0, 3010 ]
     },
-	{
+	 {
       "type": "windows-restart",
 	  "restart_timeout":"1h"
     },
@@ -96,10 +85,15 @@
 	  "elevated_user": "vagrant",
       "elevated_password": "vagrant",
       "scripts": [
-		"./scripts/compact.ps1"
-	  ]
+		"./scripts/install_vbox_guest_additions.ps1",
+		"./scripts/install_tools.ps1"
+	 ]
     },
     {
+      "type": "windows-restart",
+	  "restart_timeout":"1h"
+    },
+	{
       "type": "windows-shell",
       "scripts": [
         "./scripts/set-winrm-automatic.bat",
@@ -127,9 +121,9 @@
     }
   ],
   "variables": {
-	"iso_url": "iso/9200.16384.WIN8_RTM.120725-1247_X64FRE_SERVER_EVAL_EN-US-HRM_SSS_X64FREE_EN-US_DV5.iso",
+	"iso_url": "iso/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
     "iso_checksum_type": "sha1",
-    "iso_checksum": "922B365C3360CE630F6A4B4F2F3C79E66165C0FB",
+    "iso_checksum": "849734F37346385DAC2C101E4AACBA4626BB141C",
     "autounattend": "./answer_files/2012_core/Autounattend.xml",
     "product_key": "<tab>",
 	"guest_additions_mode": "attach"

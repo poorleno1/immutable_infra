@@ -140,7 +140,7 @@
 			<CommandLine>cmd.exe /c wmic useraccount where "name='vagrant'" set PasswordExpires=FALSE</CommandLine>
 			<Order>2</Order>
 			<Description>Disable password expiration for vagrant user</Description>
-        	</SynchronousCommand>
+        </SynchronousCommand>
 		<SynchronousCommand wcm:action="add">
 			<CommandLine>cmd.exe /c powershell -Command "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force"</CommandLine>
 			<Description>Set Execution Policy 64 Bit</Description>
@@ -152,7 +152,7 @@
 			<Description>Set Execution Policy 32 Bit</Description>
 			<Order>4</Order>
 			<RequiresUserInput>true</RequiresUserInput>
-        	</SynchronousCommand>
+        </SynchronousCommand>
 		<SynchronousCommand wcm:action="add">
 			<CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateFileSizePercent /t REG_DWORD /d 0 /f</CommandLine>
 			<Order>5</Order>

@@ -1,7 +1,4 @@
 mkdir c:\temp
-echo "Stopping .net compilation"
-schTasks /end /Tn "\Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319"
-schTasks /end /Tn "\Microsoft\Windows\.NET Framework\.NET Framework NGEN v4.0.30319 64"
 Write-host "Downloading Powershell 5.1"
 (New-Object System.Net.WebClient).DownloadFile('https://go.microsoft.com/fwlink/?linkid=839516', "c:\\temp\\Win8.1AndW2K12R2-KB3191564-x64.msu")
 Write-host "Downloaded Powershell 5.1"

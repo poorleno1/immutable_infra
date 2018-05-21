@@ -128,23 +128,17 @@
 	  "restart_timeout":"1h"
     },
 	{
-      "type": "windows-shell",
-      "scripts": [
-	    "./scripts/stop_dotNet_compilation.cmd",
-        "./scripts/set-winrm-automatic.bat",
-		"./scripts/finale.cmd",
-        "./scripts/uac-enable.bat"
-	  ]
-    },
-	{
       "type": "windows-restart"
     },
     {
       "type": "windows-shell",
       "scripts": [
 	    "./scripts/dotNet_compile.cmd",
+        "./scripts/set-winrm-automatic.bat",
+		"./scripts/uac-enable.bat",
 		"./scripts/compact.bat",
-		"./scripts/uac-enable.bat"
+		"./scripts/finale.cmd",
+        "./scripts/uac-enable.bat"
 	   ]
     }
   ],

@@ -8,7 +8,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
 	  "post_shutdown_delay":"5m",
       "headless": false,
-      "boot_wait": "9m",
+      "boot_wait": "5m",
       "boot_command": [ "{{user `product_key`}}<enter>" ],
       "winrm_username": "vagrant",
       "winrm_password": "vagrant",
@@ -32,21 +32,14 @@
 		"./scripts/Test-Command.ps1",
 		"./scripts/finale.cmd",
 		"./scripts/install_tools.ps1",
+		"./scripts/stop_dotNet_compilation.ps1",
 		"./scripts/win-updates.ps1"
       ],
       "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "2048"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
+	[ "modifyvm", "{{.Name}}", "--natpf1", "guest_winrm,tcp,,55985,,5985" ],
+        [ "modifyvm", "{{.Name}}", "--memory", "8192" ],
+        [ "modifyvm", "{{.Name}}", "--vram", "128" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "4" ]
       ]
     }
   ],
@@ -81,6 +74,7 @@
 	  "elevated_user": "vagrant",
       "elevated_password": "vagrant",
       "scripts": [
+		"./scripts/stop_dotNet_compilation.ps1",
 		"./scripts/install_ps_modules.ps1",
 		"./scripts/install_vbox_guest_additions.ps1",
 		"./scripts/install_tools.ps1"
@@ -94,6 +88,7 @@
 	  "elevated_user": "vagrant",
       "elevated_password": "vagrant",
       "scripts": [
+		"./scripts/stop_dotNet_compilation.ps1",
 		"./scripts/win-updates.ps1"
 	  ]
     },
@@ -132,14 +127,14 @@
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "windows_2016_docker_{{.Provider}}.box",
+      "output": "windows_2016gui_{{.Provider}}.box",
       "vagrantfile_template": "vagrantfile-windows_2016.template"
     }
   ],
   "variables": {
-	"iso_url": "iso/14393.0.161119-1705.RS1_REFRESH_SERVER_EVAL_X64FRE_EN-US.iso",
-    "iso_checksum_type": "sha1",
-    "iso_checksum": "772700802951B36C8CB26A61C040B9A8DC3816A3",
+	"iso_url": "iso/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.iso",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "70721288BBCDFE3239D8F8C0FAE55F1F",
     "autounattend": "./answer_files/2016/Autounattend.xml",
     "product_key": "<tab>",
 	"guest_additions_mode": "attach"

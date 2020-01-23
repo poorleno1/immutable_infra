@@ -37,10 +37,10 @@
 		"./scripts/stop_dotNet_compilation.ps1"
       ],
       "vboxmanage": [
-	    [ "modifyvm", "{{.Name}}", "--natpf1", "guest_winrm,tcp,,55985,,5985" ],
-        [ "modifyvm", "{{.Name}}", "--memory", "4096" ],
+	[ "modifyvm", "{{.Name}}", "--natpf1", "guest_winrm,tcp,,55985,,5985" ],
+	[ "modifyvm", "{{.Name}}", "--memory", "8192" ],
         [ "modifyvm", "{{.Name}}", "--vram", "128" ],
-        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
+        [ "modifyvm", "{{.Name}}", "--cpus", "4" ]
       ]
     }
   ],
@@ -146,7 +146,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "windows_2016_docker_{{.Provider}}.box",
+      "output": "windows_2012_core_{{.Provider}}.box",
       "vagrantfile_template": "vagrantfile-windows_2016.template"
     }
   ],

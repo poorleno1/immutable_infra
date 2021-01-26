@@ -27,10 +27,11 @@ Vagrant.configure("2") do |config|
 
     config.vm.provider :virtualbox do |v, override|
         #v.gui = true
-        v.customize ["modifyvm", :id, "--memory", 2048]
+        v.customize ["modifyvm", :id, "--memory", 4096]
         v.customize ["modifyvm", :id, "--cpus", 4]
 		v.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
         v.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+        v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
     end
 	
 	config.vm.post_up_message = "The OS provisioning is completed."

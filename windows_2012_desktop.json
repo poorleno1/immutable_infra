@@ -7,7 +7,6 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "post_shutdown_delay": "5m",
-      "output_directory": "output-win2012desktop-image",
       "headless": false,
       "boot_wait": "5m",
       "boot_command": ["{{user `product_key`}}<enter>"],
@@ -20,8 +19,6 @@
       "disk_size": 61440,
       "floppy_files": [
         "./answer_files/2012/Autounattend.xml",
-        "./floppy/WindowsPowershell.lnk",
-        "./floppy/PinTo10.exe",
         "./scripts/disable-winrm.ps1",
         "./scripts/docker/enable-winrm.ps1",
         "./scripts/oracle-cert.cer",
@@ -35,13 +32,18 @@
         "./scripts/stop_dotNet_compilation.cmd",
         "./scripts/postunattend.xml",
         "./scripts/sysprep.bat",
+        "./scripts/disable_windows_update.cmd",
+        "./scripts/adjust_visuals.reg",
+        "./scripts/Run_antivirus.ps1",
+        "./scripts/Configure-antivirus.ps1",
         "./scripts/stop_dotNet_compilation.ps1"
       ],
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--natpf1", "guest_winrm,tcp,,55985,,5985"],
         ["modifyvm", "{{.Name}}", "--memory", "8192"],
         ["modifyvm", "{{.Name}}", "--vram", "128"],
-        ["modifyvm", "{{.Name}}", "--cpus", "4"]
+        ["modifyvm", "{{.Name}}", "--cpus", "2"],
+        ["modifyvm", "{{.Name}}", "--cpuexecutioncap", "95"]
       ]
     }
   ],
@@ -49,19 +51,7 @@
     {
       "type": "windows-shell",
       "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
-      "scripts": ["./scripts/enable-rdp.bat"]
-    },
-    {
-      "type": "windows-restart"
-    },
-    {
-      "type": "windows-shell",
-      "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
-      "scripts": [
-        "./scripts/stop_dotNet_compilation.cmd",
-        "./scripts/pin-powershell.bat",
-        "./scripts/uac-enable.bat"
-      ]
+      "scripts": ["./scripts/enable-rdp.bat", "./scripts/uac-enable.bat"]
     },
     {
       "type": "windows-shell",
@@ -74,10 +64,7 @@
       "type": "powershell",
       "elevated_user": "vagrant",
       "elevated_password": "vagrant",
-      "scripts": [
-        "./scripts/stop_dotNet_compilation.ps1",
-        "./scripts/install_powershell5.ps1"
-      ],
+      "scripts": ["./scripts/install_powershell5.ps1"],
       "valid_exit_codes": [0, 3010]
     },
     {
@@ -124,21 +111,66 @@
     },
     {
       "type": "windows-restart",
+      "restart_timeout": "5h"
+    },
+    {
+      "type": "powershell",
+      "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": [
+        "./scripts/stop_dotNet_compilation.ps1",
+        "./scripts/win-updates.ps1"
+      ]
+    },
+    {
+      "type": "windows-restart",
+      "restart_timeout": "3h"
+    },
+    {
+      "type": "powershell",
+      "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": [
+        "./scripts/stop_dotNet_compilation.ps1",
+        "./scripts/win-updates.ps1"
+      ]
+    },
+    {
+      "type": "windows-restart",
       "restart_timeout": "1h"
     },
     {
-      "type": "windows-restart"
+      "type": "powershell",
+      "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": ["./scripts/docker/Installers/Run-NGen.ps1"]
+    },
+    {
+      "type": "windows-restart",
+      "restart_timeout": "1h"
     },
     {
       "type": "windows-shell",
       "scripts": [
-        "./scripts/dotNet_compile.cmd",
         "./scripts/set-winrm-automatic.bat",
         "./scripts/uac-enable.bat",
+        "./scripts/disable_windows_update.cmd",
         "./scripts/compact.bat",
-        "./scripts/finale.cmd",
-        "./scripts/uac-enable.bat"
+        "./scripts/finale.cmd"
       ]
+    },
+    {
+      "type": "powershell",
+      "elevated_user": "vagrant",
+      "elevated_password": "vagrant",
+      "scripts": [
+        "./scripts/Run_antivirus.ps1",
+        "./scripts/Configure-antivirus.ps1"
+      ]
+    },
+    {
+      "type": "windows-restart",
+      "restart_timeout": "1h"
     }
   ],
   "post-processors": [

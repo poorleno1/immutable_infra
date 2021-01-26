@@ -40,7 +40,6 @@
             "type": "windows-shell",
             "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
             "scripts": [
-              "./scripts/stop_dotNet_compilation.cmd",
               "./scripts/enable-rdp.bat",
               "./scripts/uac-enable.bat"
             ]
@@ -58,21 +57,14 @@
             "elevated_user": "vagrant",
             "elevated_password": "vagrant",
             "scripts": [
-              "./scripts/stop_dotNet_compilation.ps1",
-              "./scripts/install_vbox_guest_additions.ps1",
               "./scripts/install_tools.ps1"
             ]
-          },
-          {
-            "type": "windows-restart",
-            "restart_timeout": "1h"
           },
           {
             "type": "powershell",
             "elevated_user": "vagrant",
             "elevated_password": "vagrant",
             "scripts": [
-              "./scripts/stop_dotNet_compilation.ps1",
               "./scripts/install_ps_modules.ps1",
               "./scripts/win-updates.ps1"
             ],

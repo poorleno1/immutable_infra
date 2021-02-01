@@ -42,17 +42,21 @@
             "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
             "scripts": [
               "./scripts/enable-rdp.bat",
-              "./scripts/uac-enable.bat"
-            ]
-          },
-          {
-            "type": "windows-shell",
-            "scripts": [
               "./scripts/set-winrm-automatic.bat",
               "./scripts/uac-enable.bat"
             ]
           },
-      
+          {
+            "type": "powershell",
+            "elevated_user": "vagrant",
+            "elevated_password": "vagrant",
+            "scripts": ["./scripts/install_powershell5.ps1"],
+            "valid_exit_codes": [0, 3010]
+          },
+          {
+            "type": "windows-restart",
+            "restart_timeout": "1h"
+          },
           {
             "type": "powershell",
             "elevated_user": "vagrant",
@@ -132,15 +136,15 @@
       {
         "type": "vagrant",
         "keep_input_artifact": true,
-        "output": "windows2016hyperv-{{.Provider}}.box",
+        "output": "windows2012hyperv-{{.Provider}}.box",
         "vagrantfile_template": "vagrantfile-windows.template"
       }
     ],
     "variables": {
-        "iso_url": "iso/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.iso",
-        "iso_checksum_type": "md5",
-        "iso_checksum": "70721288BBCDFE3239D8F8C0FAE55F1F",
-        "autounattend": "./answer_files/2016/Autounattend.xml",
-        "product_key": "<tab>"
+      "iso_url": "iso/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
+      "iso_checksum_type": "md5",
+      "iso_checksum": "5B5E08C490AD16B59B1D9FAB0DEF883A",
+      "autounattend": "./answer_files/2012/Autounattend.xml",
+      "product_key": "<tab>"
     }
   }

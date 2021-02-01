@@ -16,7 +16,9 @@ Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase
     "$env:windir\logs",
     "$env:windir\panther",
     "$env:windir\temp\*",
-    "$env:windir\winsxs\manifestcache"
+    "$env:windir\winsxs\manifestcache",
+    "$env:TEMP"
+    "c:\TEMP"
 ) | % {
     if (Test-Path $_) {
         Write-Host "Removing $_"

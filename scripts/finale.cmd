@@ -1,1 +1,1 @@
-regedit /s adjust_visuals.reg
+regedit /s a:\adjust_visuals.reg

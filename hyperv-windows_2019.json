@@ -132,15 +132,15 @@
       {
         "type": "vagrant",
         "keep_input_artifact": true,
-        "output": "windows2016hyperv-{{.Provider}}.box",
+        "output": "windows2019hyperv-{{.Provider}}.box",
         "vagrantfile_template": "vagrantfile-windows.template"
       }
     ],
     "variables": {
-        "iso_url": "iso/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.iso",
-        "iso_checksum_type": "md5",
-        "iso_checksum": "70721288BBCDFE3239D8F8C0FAE55F1F",
-        "autounattend": "./answer_files/2016/Autounattend.xml",
-        "product_key": "<tab>"
+      "iso_url": "iso/17763.737.190906-2324.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us_1.iso",
+      "iso_checksum_type": "md5",
+      "iso_checksum": "70FEC2CB1D6759108820130C2B5496DA",
+      "autounattend": "./answer_files/2019/Autounattend.xml",
+      "product_key": "<tab>"
     }
   }

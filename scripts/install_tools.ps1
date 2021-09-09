@@ -1,7 +1,8 @@
 if (!(test-path c:\temp)) { New-Item c:\temp -ItemType Directory }
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+#Start-BitsTransfer https://download.sysinternals.com/files/SysinternalsSuite.zip -Destination c:\temp
 Invoke-WebRequest -Uri https://download.sysinternals.com/files/SysinternalsSuite.zip -OutFile c:\temp\SysinternalsSuite.zip
-Invoke-WebRequest -Uri https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml -OutFile c:\temp\sysmonconfig-export.xml
+#Invoke-WebRequest -Uri https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml -OutFile c:\temp\sysmonconfig-export.xml
 if (test-path C:\temp\SysinternalsSuite.zip -PathType Leaf ) { write-host "C:\temp\SysinternalsSuite.zip found.Extracting" -ForegroundColor Cyan; Expand-Archive C:\temp\SysinternalsSuite.zip -DestinationPath C:\Tools -Force }
 else
 { write-host "C:\temp\SysinternalsSuite.zip not found." -ForegroundColor red }
@@ -36,3 +37,4 @@ $XmlDocument.Save("c:\temp\USRegion.xml")
 Set-Culture en-US
 
 Remove-Item c:\temp\USRegion.xml
+Remove-Item c:\temp\SysinternalsSuite.zip

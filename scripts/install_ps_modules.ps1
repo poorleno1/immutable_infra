@@ -11,11 +11,11 @@ Install-Module PSWindowsUpdate -Force
 #Install-Module xCertificate -Force
 
 
-Write-Host "Downloading Choco client and tools"
+#Write-Host "Downloading Choco client and tools"
 #(New-Object System.Net.WebClient).DownloadFile('https://chocolatey.org/install.ps1', "c:\\temp\\install.ps1")
 #(New-Object System.Net.WebClient).DownloadFile('https://chocolatey.org/install.ps1',"c:\temp\install.ps1")
 
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+#iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-Write-Host "Installing Choco client and tools"
+#Write-Host "Installing Choco client and tools"
 #Invoke-Expression "& `"c:\\temp\\install.ps1`""

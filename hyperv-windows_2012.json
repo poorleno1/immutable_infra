@@ -1,150 +1,138 @@
 {
-    "builders": [
-      {
-        "type": "hyperv-iso",
-        "guest_additions_mode": "disable",
-        "iso_url": "{{ user `iso_url` }}",
-        "iso_checksum": "{{ user `iso_checksum` }}",
-        "iso_checksum_type": "md5",
-        "vm_name": "2016min",
-        "memory": "4096",
-        "cpus": "2",
-        "communicator": "winrm",
-        "winrm_username": "vagrant",
-        "winrm_password": "vagrant",
-        "winrm_timeout": "12h",
-        "shutdown_command": "a:/sysprep.bat",
-        "shutdown_timeout": "15m",
-        "switch_name": "internal_switch",
-        "floppy_files": [
-            "answer_files/2016/Autounattend.xml",
-            "./scripts/disable-winrm.ps1",
-            "./scripts/docker/enable-winrm.ps1",
-            "./scripts/oracle-cert.cer",
-            "./scripts/winrm.ps1",
-            "./scripts/Test-Command.ps1",
-            "./scripts/finale.cmd",
-            "./scripts/install_tools.ps1",
-            "./scripts/win-updates.ps1",
-            "./scripts/install_ps_modules.ps1",
-            "./scripts/dotNet_compile.cmd",
-            "./scripts/stop_dotNet_compilation.cmd",
-            "./scripts/postunattend.xml",
-            "./scripts/sysprep.bat",
-            "./scripts/adjust_visuals.reg",
-            "./scripts/stop_dotNet_compilation.ps1"
-        ]
-      }
-    ],
-    "provisioners": [
-        {
-            "type": "windows-shell",
-            "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
-            "scripts": [
-              "./scripts/enable-rdp.bat",
-              "./scripts/set-winrm-automatic.bat",
-              "./scripts/uac-enable.bat"
-            ]
-          },
-          {
-            "type": "powershell",
-            "elevated_user": "vagrant",
-            "elevated_password": "vagrant",
-            "scripts": ["./scripts/install_powershell5.ps1"],
-            "valid_exit_codes": [0, 3010]
-          },
-          {
-            "type": "windows-restart",
-            "restart_timeout": "1h"
-          },
-          {
-            "type": "powershell",
-            "elevated_user": "vagrant",
-            "elevated_password": "vagrant",
-            "scripts": [
-              "./scripts/install_tools.ps1"
-            ]
-          },
-          {
-            "type": "powershell",
-            "elevated_user": "vagrant",
-            "elevated_password": "vagrant",
-            "scripts": [
-              "./scripts/install_ps_modules.ps1",
-              "./scripts/win-updates.ps1"
-            ],
-            "valid_exit_codes": [0, 259, 1115]
-          },
-          {
-            "type": "windows-restart",
-            "restart_timeout": "1h"
-          },
-          {
-            "type": "powershell",
-            "elevated_user": "vagrant",
-            "elevated_password": "vagrant",
-            "scripts": [
-              "./scripts/stop_dotNet_compilation.ps1",
-              "./scripts/win-updates.ps1"
-            ]
-          },
-          {
-            "type": "windows-restart",
-            "restart_timeout": "1h"
-          },
-          {
-            "type": "powershell",
-            "elevated_user": "vagrant",
-            "elevated_password": "vagrant",
-            "scripts": [
-              "./scripts/stop_dotNet_compilation.ps1",
-              "./scripts/win-updates.ps1"
-            ]
-          },
-          {
-            "type": "windows-restart",
-            "restart_timeout": "1h"
-          },
-          {
-            "type": "powershell",
-            "elevated_user": "vagrant",
-            "elevated_password": "vagrant",
-            "scripts": [
-              "./scripts/stop_dotNet_compilation.ps1",
-              "./scripts/win-updates.ps1"
-            ]
-          },
-          {
-            "type": "windows-restart",
-            "restart_timeout": "1h"
-          },
-          {
-            "type": "windows-shell",
-            "scripts": [
-              "./scripts/set-winrm-automatic.bat",
-              "./scripts/uac-enable.bat",
-              "./scripts/compact.bat",
-              "./scripts/finale.cmd"
-            ]
-          },
-          {
-            "type": "windows-restart",
-            "restart_timeout": "1h"
-          }
-    ],
-    "post-processors": [
-      {
-        "type": "vagrant",
-        "keep_input_artifact": true,
-        "output": "windows2012hyperv-{{.Provider}}.box",
-        "vagrantfile_template": "vagrantfile-windows.template"
-      }
-    ],
-    "variables": {
-      "iso_url": "iso/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
+  "builders": [
+    {
+      "type": "hyperv-iso",
+      "guest_additions_mode": "disable",
+      "iso_url": "{{ user `iso_url` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "md5",
-      "iso_checksum": "5B5E08C490AD16B59B1D9FAB0DEF883A",
-      "autounattend": "./answer_files/2012/Autounattend.xml",
-      "product_key": "<tab>"
+      "vm_name": "2012min",
+      "memory": "8192",
+      "cpus": "2",
+      "communicator": "winrm",
+      "winrm_username": "vagrant",
+      "winrm_password": "vagrant",
+      "winrm_timeout": "12h",
+      "shutdown_command": "a:/sysprep.bat",
+      "shutdown_timeout": "15m",
+      "switch_name": "internal_switch",
+      "floppy_files": [
+          "answer_files/2016/Autounattend.xml",
+          "./scripts/disable-winrm.ps1",
+          "./scripts/docker/enable-winrm.ps1",
+          "./scripts/oracle-cert.cer",
+          "./scripts/winrm.ps1",
+          "./scripts/Test-Command.ps1",
+          "./scripts/finale.cmd",
+          "./scripts/install_tools.ps1",
+          "./scripts/win-updates.ps1",
+          "./scripts/install_ps_modules.ps1",
+          "./scripts/dotNet_compile.cmd",
+          "./scripts/stop_dotNet_compilation.cmd",
+          "./scripts/postunattend.xml",
+          "./scripts/sysprep.bat",
+          "./scripts/adjust_visuals.reg",
+          "./scripts/docker/Installers/Run-NGen.ps1",
+          "./scripts/docker/Installers/Initialize-VM.ps1",
+          "./scripts/docker/Installers/Finalize-VM.ps1"
+      ]
     }
+  ],
+  "provisioners": [
+      {
+          "type": "windows-shell",
+          "execute_command": "{{ .Vars }} cmd /c \"{{ .Path }}\"",
+          "scripts": [
+            "./scripts/enable-rdp.bat",
+            "./scripts/uac-enable.bat"
+          ]
+        },
+        {
+          "type": "powershell",
+          "elevated_user": "vagrant",
+          "elevated_password": "vagrant",
+          "scripts": ["./scripts/install_powershell5.ps1"],
+          "valid_exit_codes": [0, 3010]
+        },
+        {
+          "type": "windows-restart",
+          "restart_timeout": "1h"
+        },
+        {
+          "type": "powershell",
+          "elevated_user": "vagrant",
+          "elevated_password": "vagrant",
+          "scripts": [
+            "./scripts/install_tools.ps1"
+          ]
+        },
+        {
+          "type": "powershell",
+          "elevated_user": "vagrant",
+          "elevated_password": "vagrant",
+          "scripts": [
+            "./scripts/install_ps_modules.ps1",
+            "./scripts/win-updates.ps1"
+          ],
+          "valid_exit_codes": [0, 259, 1115]
+        },
+        {
+          "type": "windows-restart",
+          "restart_timeout": "1h"
+        },
+        {
+          "type": "powershell",
+          "elevated_user": "vagrant",
+          "elevated_password": "vagrant",
+          "scripts": [
+            "./scripts/docker/Installers/Run-NGen.ps1",
+            "./scripts/win-updates.ps1"
+          ]
+        },
+        {
+          "type": "windows-restart",
+          "restart_timeout": "1h"
+        },
+        {
+          "type": "powershell",
+          "elevated_user": "vagrant",
+          "elevated_password": "vagrant",
+          "scripts": [
+            "./scripts/docker/Installers/Run-NGen.ps1",
+            "./scripts/win-updates.ps1"
+          ]
+        },
+        {
+          "type": "windows-restart",
+          "restart_timeout": "1h"
+        },
+        {
+          "type": "windows-shell",
+          "scripts": [
+            "./scripts/set-winrm-automatic.bat",
+            "./scripts/uac-enable.bat",
+            "./scripts/compact.bat",
+            "./scripts/finale.cmd"
+          ]
+        },
+        {
+          "type": "windows-restart",
+          "restart_timeout": "1h"
+        }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": true,
+      "output": "windows2012guihyperv-{{.Provider}}.box",
+      "vagrantfile_template": "vagrantfile-windows.template"
+    }
+  ],
+  "variables": {
+    "iso_url": "iso/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
+    "iso_checksum_type": "md5",
+    "iso_checksum": "5B5E08C490AD16B59B1D9FAB0DEF883A",
+    "autounattend": "./answer_files/2012/Autounattend.xml",
+    "product_key": "<tab>"
   }
+}

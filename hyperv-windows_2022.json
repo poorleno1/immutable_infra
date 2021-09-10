@@ -59,33 +59,6 @@
           ]
         },
         {
-          "type": "powershell",
-          "elevated_user": "vagrant",
-          "elevated_password": "vagrant",
-          "scripts": [
-            "./scripts/install_ps_modules.ps1",
-            "./scripts/win-updates.ps1"
-          ],
-          "valid_exit_codes": [0, 259, 1115]
-        },
-        {
-          "type": "windows-restart",
-          "restart_timeout": "1h"
-        },
-        {
-          "type": "powershell",
-          "elevated_user": "vagrant",
-          "elevated_password": "vagrant",
-          "scripts": [
-            "./scripts/docker/Installers/Run-NGen.ps1",
-            "./scripts/win-updates.ps1"
-          ]
-        },
-        {
-          "type": "windows-restart",
-          "restart_timeout": "1h"
-        },
-        {
           "type": "windows-shell",
           "scripts": [
             "./scripts/set-winrm-automatic.bat",
@@ -103,7 +76,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": true,
-      "output": "windows2019guihyperv-{{.Provider}}.box",
+      "output": "windows2022guihyperv-{{.Provider}}.box",
       "vagrantfile_template": "vagrantfile-windows.template"
     }
   ],

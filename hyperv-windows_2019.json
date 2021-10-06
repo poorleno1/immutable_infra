@@ -24,6 +24,8 @@
           "./scripts/winrm.ps1",
           "./scripts/Test-Command.ps1",
           "./scripts/finale.cmd",
+          "./scripts/compact.bat",
+          "./scripts/compact.ps1",
           "./scripts/install_tools.ps1",
           "./scripts/win-updates.ps1",
           "./scripts/install_ps_modules.ps1",
@@ -84,6 +86,16 @@
         {
           "type": "windows-restart",
           "restart_timeout": "1h"
+        },
+        {
+          "type": "powershell",
+          "elevated_user": "vagrant",
+          "elevated_password": "vagrant",
+          "scripts": [
+            "./scripts/docker/Installers/Run-NGen.ps1",
+            "./scripts/Test-Command.ps1",
+            "./scripts/compact.ps1"
+          ]
         },
         {
           "type": "windows-shell",

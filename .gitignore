@@ -1,0 +1,4 @@
+/iso
+/output-hyperv-iso
+/packer_cache
+*.box

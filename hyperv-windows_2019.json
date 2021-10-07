@@ -3,6 +3,8 @@
     {
       "type": "hyperv-iso",
       "guest_additions_mode": "disable",
+      "temp_path": "E:\\temp",
+      "differencing_disk": true,
       "iso_url": "{{ user `iso_url` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "md5",

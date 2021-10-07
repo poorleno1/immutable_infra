@@ -69,23 +69,23 @@ finally {
 Del $FilePath
 
 
-# Write-Host "Disable automatic updates" -ForegroundColor Cyan
-# $p = Start-Process "C:\Windows\System32\cscript.exe" -ArgumentList "C:\windows\System32\SCregEdit.wsf /AU 1" -Wait -PassThru
+Write-Host "Disable automatic updates" -ForegroundColor Cyan
+$p = Start-Process "C:\Windows\System32\cscript.exe" -ArgumentList "C:\windows\System32\SCregEdit.wsf /AU 1" -Wait -PassThru
 
-# Write-Host "exit code is: $($p.ExitCode)"
+Write-Host "exit code is: $($p.ExitCode)"
 
 
-# Write-Host "Setting time zone"
+Write-Host "Setting time zone"
 
  
-# if (!(test-path c:\temp)) { New-Item c:\temp -ItemType Directory } 
-# [xml]$XmlDocument = invoke-webrequest -Uri https://raw.githubusercontent.com/poorleno1/systemlocale/master/USRegion.xml -UseBasicParsing | Select-Object -ExpandProperty content
-# $XmlDocument.Save("c:\temp\USRegion.xml")
-# # Set Locale, language etc.
-# & $env:SystemRoot\System32\control.exe "intl.cpl,,/f:`"c:\temp\USRegion.xml`""
+if (!(test-path c:\temp)) { New-Item c:\temp -ItemType Directory } 
+[xml]$XmlDocument = invoke-webrequest -Uri https://raw.githubusercontent.com/poorleno1/systemlocale/master/USRegion.xml -UseBasicParsing | Select-Object -ExpandProperty content
+$XmlDocument.Save("c:\temp\USRegion.xml")
+# Set Locale, language etc.
+& $env:SystemRoot\System32\control.exe "intl.cpl,,/f:`"c:\temp\USRegion.xml`""
   
-# # Set Timezone
-# & tzutil /s "Central European Standard Time"
+# Set Timezone
+& tzutil /s "Central European Standard Time"
    
-# # Set languages/culture
-# Set-Culture en-US
+# Set languages/culture
+Set-Culture en-US

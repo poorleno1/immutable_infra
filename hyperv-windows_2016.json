@@ -3,10 +3,12 @@
     {
       "type": "hyperv-iso",
       "guest_additions_mode": "disable",
+      "temp_path": "E:\\temp",
+      "differencing_disk": true,
       "iso_url": "{{ user `iso_url` }}",
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "md5",
-      "vm_name": "2019gui",
+      "vm_name": "2016gui",
       "memory": "8192",
       "cpus": "2",
       "communicator": "winrm",
@@ -24,6 +26,8 @@
           "./scripts/winrm.ps1",
           "./scripts/Test-Command.ps1",
           "./scripts/finale.cmd",
+          "./scripts/compact.bat",
+          "./scripts/compact.ps1",
           "./scripts/install_tools.ps1",
           "./scripts/win-updates.ps1",
           "./scripts/install_ps_modules.ps1",
@@ -86,6 +90,16 @@
           "restart_timeout": "1h"
         },
         {
+          "type": "powershell",
+          "elevated_user": "vagrant",
+          "elevated_password": "vagrant",
+          "scripts": [
+            "./scripts/docker/Installers/Run-NGen.ps1",
+            "./scripts/Test-Command.ps1",
+            "./scripts/compact.ps1"
+          ]
+        },
+        {
           "type": "windows-shell",
           "scripts": [
             "./scripts/set-winrm-automatic.bat",
@@ -103,15 +117,15 @@
     {
       "type": "vagrant",
       "keep_input_artifact": true,
-      "output": "windows2019guihyperv-{{.Provider}}.box",
+      "output": "windows2016guihyperv-{{.Provider}}.box",
       "vagrantfile_template": "vagrantfile-windows.template"
     }
   ],
   "variables": {
-    "iso_url": "iso/17763.737.190906-2324.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us_1.iso",
+    "iso_url": "iso/Windows_Server_2016_Datacenter_EVAL_en-us_14393_refresh.iso",
     "iso_checksum_type": "md5",
-    "iso_checksum": "70FEC2CB1D6759108820130C2B5496DA",
-    "autounattend": "./answer_files/2019/Autounattend.xml",
+    "iso_checksum": "70721288BBCDFE3239D8F8C0FAE55F1F",
+    "autounattend": "./answer_files/2016/Autounattend.xml",
     "product_key": "<tab>"
   }
 }

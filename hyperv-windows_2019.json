@@ -19,7 +19,7 @@
       "shutdown_timeout": "15m",
       "switch_name": "internal_switch",
       "floppy_files": [
-          "answer_files/2016/Autounattend.xml",
+          "answer_files/2019/Autounattend.xml",
           "./scripts/disable-winrm.ps1",
           "./scripts/docker/enable-winrm.ps1",
           "./scripts/oracle-cert.cer",

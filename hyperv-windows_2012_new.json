@@ -24,7 +24,8 @@
         "./scripts/stop_dotNet_compilation.ps1",
         "./scripts/docker/Installers/Run-NGen.ps1",
         "./scripts/docker/Installers/Initialize-VM.ps1",
-        "./scripts/docker/Installers/Finalize-VM.ps1"
+        "./scripts/docker/Installers/Finalize-VM.ps1",
+        "./scripts/explorer-config.ps1"
       ],
       "guest_additions_mode": "disable",
       "iso_checksum": "md5:{{ user `iso_checksum` }}",
@@ -131,6 +132,7 @@
       "elevated_password": "vagrant",
       "elevated_user": "vagrant",
       "scripts": [
+        "./scripts/explorer-config.ps1",
         "./scripts/docker/Installers/Run-NGen.ps1",
         "./scripts/Test-Command.ps1",
         "./scripts/compact.ps1"

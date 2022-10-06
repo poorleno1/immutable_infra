@@ -19,7 +19,7 @@
       "shutdown_timeout": "15m",
       "switch_name": "internal_switch",
       "floppy_files": [
-          "answer_files/2016/Autounattend.xml",
+          "./answer_files/11/Autounattend.xml",
           "./scripts/disable-winrm.ps1",
           "./scripts/docker/enable-winrm.ps1",
           "./scripts/oracle-cert.cer",
@@ -35,7 +35,6 @@
           "./scripts/stop_dotNet_compilation.cmd",
           "./scripts/postunattend.xml",
           "./scripts/sysprep.bat",
-          "./scripts/enable-winrm.ps1",
           "./scripts/adjust_visuals.reg",
           "./scripts/stop_dotNet_compilation.ps1",
           "./scripts/docker/Installers/Run-NGen.ps1",
@@ -125,9 +124,9 @@
     }
   ],
   "variables": {
-    "iso_url": "iso/22000.318.211104-1236.co_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
+    "iso_url": "iso/Win11_22H2_English_x64v1.iso",
     "iso_checksum_type": "md5",
-    "iso_checksum": "05BE88C9D189BBEFE54D3FB1046EDC49",
+    "iso_checksum": "1ADD79027CF395498BADA342B86675A4",
     "autounattend": "./answer_files/11/Autounattend.xml",
     "product_key": "<tab>"
   }

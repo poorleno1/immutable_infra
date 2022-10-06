@@ -149,7 +149,11 @@ choco feature enable -n allowGlobalConfirmation
 
 # https://github.com/chocolatey/choco/issues/89
 # Remove some of the command aliases, like `cpack` #89
-Remove-Item -Path $env:ChocolateyInstall\bin\cpack.exe -Force
+if (test=path $env:ChocolateyInstall\bin\cpack.exe) {
+    Remove-Item -Path $env:ChocolateyInstall\bin\cpack.exe -Force
+}
+
+
 
 # if (Test-IsWin16) {
 #     # Install vcredist140

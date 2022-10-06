@@ -39,8 +39,7 @@
           "./scripts/stop_dotNet_compilation.ps1",
           "./scripts/docker/Installers/Run-NGen.ps1",
           "./scripts/docker/Installers/Initialize-VM.ps1",
-          "./scripts/docker/Installers/Finalize-VM.ps1",
-          "./scripts/explorer-config.ps1"
+          "./scripts/docker/Installers/Finalize-VM.ps1"
           
         ]
       }
@@ -96,7 +95,6 @@
           "elevated_user": "vagrant",
           "elevated_password": "vagrant",
           "scripts": [
-            "./scripts/explorer-config.ps1",
             "./scripts/docker/Installers/Run-NGen.ps1",
             "./scripts/Test-Command.ps1",
             "./scripts/compact.ps1"

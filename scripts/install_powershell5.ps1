@@ -1,5 +1,6 @@
 mkdir c:\temp
 Write-host "Downloading Powershell 5.1" -ForegroundColor Cyan
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 (New-Object System.Net.WebClient).DownloadFile('https://go.microsoft.com/fwlink/?linkid=839516', "c:\\temp\\Win8.1AndW2K12R2-KB3191564-x64.msu")
 Write-host "Downloaded Powershell 5.1" -ForegroundColor Cyan
 

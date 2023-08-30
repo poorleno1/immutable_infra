@@ -79,8 +79,17 @@ function Disable-UserAccessControl {
 # Set TLS1.2
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor "Tls12"
 
+Write-Host "Disable Server Manager on Logon"
+Get-ScheduledTask -TaskName ServerManager | Disable-ScheduledTask
+
+Write-Host "Disable 'Allow your PC to be discoverable by other PCs' popup"
+New-Item -Path HKLM:\System\CurrentControlSet\Control\Network -Name NewNetworkWindowOff -Force
+
 Write-Host "Disable Antivirus"
 Set-MpPreference -DisableRealtimeMonitoring $true
+
+Write-Host "Disable Defender"
+Uninstall-WindowsFeature -Name Windows-Defender
 
 # Disable Windows Update
 $AutoUpdatePath = "HKLM:SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU"
@@ -95,8 +104,8 @@ else {
 # Install .NET Framework 3.5 (required by Chocolatey)
 # Explicitly install all 4.7 sub features to include ASP.Net.
 # As of  1/16/2019, WinServer 19 lists .Net 4.7 as NET-Framework-45-Features
-# Install-WindowsFeature -Name NET-Framework-Features -IncludeAllSubFeature
-# Install-WindowsFeature -Name NET-Framework-45-Features -IncludeAllSubFeature
+#Install-WindowsFeature -Name NET-Framework-Features -IncludeAllSubFeature
+#Install-WindowsFeature -Name NET-Framework-45-Features -IncludeAllSubFeature
 # if (Test-IsWin16) {
 #     Install-WindowsFeature -Name BITS -IncludeAllSubFeature
 #     Install-WindowsFeature -Name DSC-Service
@@ -149,7 +158,7 @@ choco feature enable -n allowGlobalConfirmation
 
 # https://github.com/chocolatey/choco/issues/89
 # Remove some of the command aliases, like `cpack` #89
-if (test=path $env:ChocolateyInstall\bin\cpack.exe) {
+if (test-path $env:ChocolateyInstall\bin\cpack.exe) {
     Remove-Item -Path $env:ChocolateyInstall\bin\cpack.exe -Force
 }
 

@@ -35,7 +35,7 @@
       "shutdown_timeout": "15m",
       "switch_name": "internal_switch",
       "type": "hyperv-iso",
-      "vm_name": "2012min",
+      "vm_name": "2012gui",
       "winrm_password": "vagrant",
       "winrm_timeout": "12h",
       "winrm_username": "vagrant"

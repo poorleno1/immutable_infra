@@ -7,6 +7,7 @@
       "floppy_files": [
         "./answer_files/11/Autounattend.xml",
         "./scripts/disable-winrm.ps1",
+        "./scripts/enable-winrm.ps1",
         "./scripts/docker/enable-winrm.ps1",
         "./scripts/oracle-cert.cer",
         "./scripts/winrm.ps1",

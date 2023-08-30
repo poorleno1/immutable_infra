@@ -154,8 +154,8 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File a:\disable-winrm.ps1</CommandLine>
-                    <Description>Disable WinRM</Description>
+                    <CommandLine>%SystemRoot%\System32\netsh.exe advfirewall set  allprofiles state off</CommandLine>
+                    <Description>Disable firewall</Description>
                     <Order>5</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>

@@ -65,10 +65,25 @@
       "elevated_password": "vagrant",
       "elevated_user": "vagrant",
       "scripts": [
-        "./scripts/install_tools.ps1",
+        "./scripts/install_tools.ps1"
+      ],
+      "type": "powershell"
+    },
+    {
+      "restart_timeout": "1h",
+      "type": "windows-restart"
+    },
+    {
+      "elevated_password": "vagrant",
+      "elevated_user": "vagrant",
+      "scripts": [
         "./scripts/docker/Installers/Initialize-VM.ps1"
       ],
       "type": "powershell"
+    },
+    {
+      "restart_timeout": "1h",
+      "type": "windows-restart"
     },
     {
       "elevated_password": "vagrant",
@@ -92,6 +107,7 @@
       "elevated_password": "vagrant",
       "elevated_user": "vagrant",
       "scripts": [
+        "./scripts/explorer-config.ps1",
         "./scripts/docker/Installers/Run-NGen.ps1",
         "./scripts/win-updates.ps1"
       ],
@@ -100,17 +116,6 @@
     {
       "restart_timeout": "1h",
       "type": "windows-restart"
-    },
-    {
-      "elevated_password": "vagrant",
-      "elevated_user": "vagrant",
-      "scripts": [
-        "./scripts/explorer-config.ps1",
-        "./scripts/docker/Installers/Run-NGen.ps1",
-        "./scripts/Test-Command.ps1",
-        "./scripts/compact.ps1"
-      ],
-      "type": "powershell"
     },
     {
       "scripts": [

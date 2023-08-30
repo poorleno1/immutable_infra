@@ -1,7 +1,7 @@
 if (!(test-path c:\tools)) {
     mkdir c:\tools
 }
-
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Invoke-WebRequest "https://raw.githubusercontent.com/poorleno1/ExplorerConfig/main/explorerConfig.ps1" -OutFile "c:\tools\ExplorerConfig.ps1"
 #Start-BitsTransfer "https://raw.githubusercontent.com/poorleno1/ExplorerConfig/main/explorerConfig.ps1" -Destination "c:\tools\ExplorerConfig.ps1"
 

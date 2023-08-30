@@ -16,3 +16,4 @@ netsh advfirewall firewall set rule name="Windows Remote Management (HTTP-In)" n
 Set-Service winrm -startuptype "auto"
 Restart-Service winrm
 add-content C:\jarek.txt -Value "WinRM Enabled"
+Get-NetFirewallRule WINRM-HTTP-In-TCP | Set-NetFirewallRule -Profile Domain, Private, Public -RemoteAddress Any -Action Allow
